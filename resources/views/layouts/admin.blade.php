@@ -1,41 +1,35 @@
 <!DOCTYPE html>
-
-<html lang="en">
+<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  @yield('title')
-  <!-- Google Font: Source Sans Pro -->
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
-  <!-- Font Awesome Icons -->
-  <link rel="stylesheet" href="{{ asset('adminlte/plugins/fontawesome-free/css/all.min.css')}}">
-  <!-- Theme style -->
-  <link rel="stylesheet" href="{{ asset('adminlte/dist/css/adminlte.min.css')}}">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+
+    <title>@yield('title')</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/style.min.css" rel="stylesheet" />
+    <link href="{{ asset('admin/css/styles.css')}}" rel="stylesheet" />
+    <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
 </head>
-<body class="hold-transition sidebar-mini">
-<div class="wrapper">
+<body class="sb-nav-fixed"> 
+  @include('layouts.partials.navbar')
 
-  <!-- Navbar -->
-  @include('partials.header')
-  <!-- /.navbar -->
-
-  <!-- Main Sidebar Container -->
-  @include('partials.sidebar')
-  <!-- Content Wrapper. Contains page content -->
-   @yield('content')
-  <!-- /.content-wrapper -->
-
-  <!-- Control Sidebar -->
-  <!-- /.control-sidebar -->
-
-  <!-- Main Footer -->
-  @include('partials.footer')
-</div>
-<!-- jQuery -->
-<script src="{{ asset('adminlte/plugins/jquery/jquery.min.js')}}"></script>
-<!-- Bootstrap 4 -->
-<script src="{{ asset('adminlte/plugins/bootstrap/js/bootstrap.bundle.min.js')}}"></script>
-<!-- AdminLTE App -->
-<script src="{{ asset('adminlte/dist/js/adminlte.min.js')}}"></script>
+  <div id="layoutSidenav">
+            <div id="layoutSidenav_nav">
+              @include('layouts.partials.sidebar')
+            </div>
+            <div id="layoutSidenav_content">
+                <main>
+                    <div class="container-fluid px-4"></div>
+                      @yield('content')
+                    </div>
+                </main>
+                @include('layouts.partials.footer')
+            </div>
+        </div>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
+  <script src="{{ asset('admin/js/scripts.js')}}"></script>
+  <script src="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/umd/simple-datatables.min.js" crossorigin="anonymous"></script>
+  <script src="{{ asset('admin/js/datatables-simple-demo.js')}}"></script>
 </body>
 </html>
