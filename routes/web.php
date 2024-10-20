@@ -32,6 +32,7 @@ Route:: prefix('products')->group( function()
 {
     Route::get('/index', [AdminProductControler::class, 'index'])->name('adminproduct.index');
     Route::get('/create', [AdminProductControler::class, 'create'])->name('adminproduct.create');
+    Route::post('/save', [AdminProductControler::class, 'save'])->name('adminproduct.save');
 
 });
 
