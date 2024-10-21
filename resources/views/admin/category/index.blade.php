@@ -2,6 +2,7 @@
 @extends('layouts.admin')
  @section('content')
      <!-- Content Wrapper. Contains page content -->
+     <h2>Danh mục sản phẩm</h2>
 <div class="content-wrapper">
     <!-- Main content -->
     <div class="content">
@@ -20,10 +21,9 @@
               </tr>
             </thead>
             <tbody>
-              {{$i=1}}
               @foreach ($categories as $category)
               <tr>
-                <th scope="row">{{$i++}}</th>
+                <th scope="row">{{$category->id}}</th>
                 <td>{{$category->name}}</td>
                 <td>
                   <a href="{{ route('categories.edit', ['id' =>$category->id]) }}" class="btn btn-default">Sửa</a>
@@ -35,6 +35,9 @@
               
             </tbody>
           </table>
+          </div>
+          <div class="col-md-12">
+            {{$categories->links()}}
           </div>
         </div>
         <!-- /.row -->

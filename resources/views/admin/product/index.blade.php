@@ -1,5 +1,8 @@
  
 @extends('layouts.admin')
+@section('css')
+  <link rel="stylesheet" href="{{asset('admins/product/list.css')}}">
+@endsection
  @section('content')
      <!-- Content Wrapper. Contains page content -->
 <h2>Danh sách sản phẩm</h2>
@@ -24,27 +27,36 @@
               </tr>
             </thead>
             <tbody>
-              
-              <tr>
-                <th scope="row">1</th>
-                <td>Iphone X</td>
-                <td>
-                    <img src="" alt="">
-                </td>
-                <td>1900000</td>
-                <td>Iphone X</td>
+              @foreach ($products as $productItem)
+                <tr>
+                  <th scope="row">{{$productItem->id}}</th>
+                  <td>
+                    {{$productItem->name}}
+                  </td>
+                  <td>
+                      <img class="productImg_150_100" src="{{$productItem->feature_image_path}}" alt="">
+                  </td>
+                  <td>{{$productItem->price}}</td>
+                  <td>{{$productItem->category->name}}</td>
 
-                <td>
-                  <a href="" class="btn btn-default">Sửa</a>
-                  <a href="" class="btn btn-danger">Xóa</a>
-                </td>
-                
-              </tr>
-             
+                  <td>
+                  <a href="{{ route('adminproduct.edit', ['id' =>$productItem->id]) }}" class="btn btn-default">Sửa</a>
+                  <a href="{{ route('adminproduct.delete',['id' =>$productItem->id])}}" class="btn btn-danger">Xóa</a>
+                  </td>
+                  
+                </tr>
+              @endforeach
+              
               
             </tbody>
+          
           </table>
+          
           </div>
+          <div>
+            {{$products->links()}}
+          </div>
+          
         </div>
         <!-- /.row -->
       </div><!-- /.container-fluid -->

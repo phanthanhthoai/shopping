@@ -6,6 +6,8 @@ use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
+use App\Models\Category;
+
 trait StorageImageTrait{
      public function storageTraitUpload(Request $request,$fielName,$folder)
      {
@@ -34,4 +36,19 @@ trait StorageImageTrait{
           ];
           return $dataUploadTrait;
      }
+     public function categoryRecursive($parent_id,$id=0, $text='')
+    {
+        $data = Category::all();
+        foreach( $data as $value){
+            if($value['parent_id']== $id){
+                if(!empty($parent_id) && $parent_id == $value['id']){
+                    $this->htmlSelect.= "<option selected value=".$value['id'].">".$text.$value['name']."</option>";
+                }else{
+                    $this->htmlSelect.= "<option value=".$value['id'].">".$text.$value['name']."</option>";
+                }
+                $this->categoryRecursive($parent_id,$value['id'],"-");
+            }
+        }
+        return $this->htmlSelect;
+    }
 }

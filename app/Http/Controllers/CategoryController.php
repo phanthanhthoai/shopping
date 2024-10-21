@@ -22,7 +22,7 @@ class CategoryController extends Controller
         return view('admin.category.add',compact('htmlOption'));
     }
     public function index(){
-        $categories = Category::where('deleted_at','=',null)->get();
+        $categories = Category::where('deleted_at','=',null)->paginate(5);
         return view('admin.category.index', compact('categories'));
     }
     public function categoryRecursive($parent_id,$id=0, $text='')

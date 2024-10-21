@@ -33,7 +33,9 @@ Route:: prefix('products')->group( function()
     Route::get('/index', [AdminProductControler::class, 'index'])->name('adminproduct.index');
     Route::get('/create', [AdminProductControler::class, 'create'])->name('adminproduct.create');
     Route::post('/save', [AdminProductControler::class, 'save'])->name('adminproduct.save');
-
+    Route::get('/edit/{id}', [AdminProductControler::class, 'edit'])->name('adminproduct.edit');
+    Route::get('/delete/{id}', [AdminProductControler::class, 'delete'])->name('adminproduct.delete');
+    Route::post('/update/{id}', [AdminProductControler::class, 'update'])->name('adminproduct.update');
 });
 
 require __DIR__.'/auth.php';
