@@ -16,6 +16,14 @@
                                 <div class="sb-nav-link-icon"><i class="fas fa-columns"></i></div>
                                 Product
                             </a>
+                            <a class="nav-link" href="{{route('sliders.index')}}">
+                                <div class="sb-nav-link-icon"><i class="fas fa-columns"></i></div>
+                                Slider
+                            </a>
+                            <a class="nav-link" href="{{route('settings.index')}}">
+                                <div class="sb-nav-link-icon"><i class="fas fa-columns"></i></div>
+                                Settings
+                            </a>
                         </div>
                     </div>
                     <div class="sb-sidenav-footer">

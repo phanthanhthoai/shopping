@@ -1,65 +1,61 @@
  
 @extends('layouts.admin')
 @section('css')
-  <link rel="stylesheet" href="{{asset('admins/product/list.css')}}">
+  <link rel="stylesheet" href="{{asset('admins/slider/list.css')}}">
 @endsection
 @section('js')
 <script src="{{asset('vendors/sweetAlert2/sweetalert2@11.js')}}"></script> 
 
-<script src= "{{ asset('admins/product/index/list.js')}}"></script>
+<script src= "{{ asset('admins/slider/index/list.js')}}"></script>
 @endsection
  @section('content')
      <!-- Content Wrapper. Contains page content -->
-<h2>Danh sách sản phẩm</h2>
+<h2>Danh sách Slider</h2>
 <div class="content-wrapper">
     <!-- Main content -->
     <div class="content">
       <div class="container-fluid">
         <div class="row">
           <div class="col-md-12">
-            <a href="{{route('adminproduct.create')}}" class="btn btn-success float-right m-2">ADD</a>
+            <a href="{{route('sliders.create')}}" class="btn btn-success float-right m-2">ADD</a>
           </div>
           <div class="col-md-12">
             <table class="table">
             <thead>
               <tr>
                 <th scope="col">#</th>
-                <th scope="col">Tên sản phẩm</th>
+                <th scope="col">Tên slider</th>
                 <th scope="col">Hình ảnh</th>
-                <th scope="col">Giá</th>
-                <th scope="col">Danh mục</th>
+                <th scope="col">Mô tả</th>
                 <th scope="col">Quản lí</th>
               </tr>
             </thead>
             <tbody>
-              @foreach ($products as $productItem)
+              @foreach ($sliders as $sliderItem)
                 <tr>
-                  <th scope="row">{{$productItem->id}}</th>
+                  <th scope="row">{{$sliderItem->id}}</th>
                   <td>
-                    {{$productItem->name}}
+                    {{$sliderItem->name}}
                   </td>
                   <td>
-                      <img class="productImg_150_100" src="{{$productItem->feature_image_path}}" alt="">
+                      <img class="productImg_150_100" src="{{$sliderItem->image_path}}" alt="">
                   </td>
-                  <td>{{$productItem->price}}</td>
-                  <td>{{$productItem->category->name}}</td>
+                  <td>{{$sliderItem->description}}</td>
 
                   <td>
-                  <a href="{{ route('adminproduct.edit', ['id' =>$productItem->id]) }}" class="btn btn-default">Sửa</a>
-                  <a data-url="{{route('adminproduct.delete',['id'=> $productItem->id])}}" href="{{ route('adminproduct.delete',['id' =>$productItem->id])}}" class="btn btn-danger action_delete">Xóa</a>
+                  <a href="{{route('sliders.edit',['id' =>$sliderItem->id])}}" class="btn btn-default">Sửa</a>
+                  <a data-url="{{route('sliders.delete',['id' =>$sliderItem->id])}}" href="{{route('sliders.delete',['id' =>$sliderItem->id])}}" class="btn btn-danger action_delete">Xóa</a>
                   </td>
                   
                 </tr>
               @endforeach
-              
-              
             </tbody>
           
           </table>
           
           </div>
           <div>
-            {{$products->links()}}
+            {{$sliders->links()}}
           </div>
           
         </div>

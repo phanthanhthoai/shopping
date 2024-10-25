@@ -5,7 +5,7 @@
 <link rel="stylesheet" href="{{asset('admins/product/edit.css')}}">
 @endsection
  @section('content')
-     <!-- Content Wrapper. Contains page content -->
+<h3>Sửa sản phẩm</h3>     <!-- Content Wrapper. Contains page content -->
 <div class="content-wrapper">
     <!-- Main content -->
     <div class="content">
@@ -13,7 +13,7 @@
         <div class="row">
           <div class="col-md-6">
           
-               <form action="" method="post" enctype="multipart/form-data">
+               <form action="{{route('adminproduct.update',['id'=>$product->id])}}" method="post" enctype="multipart/form-data">
                     @csrf
                     <div class="mb-3">
                          <label for="name" class="form-label">Tên sản phẩm</label>
@@ -60,7 +60,7 @@
                     </div> -->
                     <div class="mb-3">
                          <label class="form-label">Nhập nội dung</label>
-                         <textarea class="form-control" name="contents" rows="3" ></textarea>
+                         <textarea class="form-control" name="contents" rows="3" >{{$product->content}}</textarea>
                     </div>
                     <button type="submit" class="btn btn-primary">Submit</button>
                </form>

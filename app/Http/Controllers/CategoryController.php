@@ -7,8 +7,11 @@ use Illuminate\Http\Request;
 use Illuminate\View\View;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Pagination\Paginator;
+
 class CategoryController extends Controller
 {
+    
     private $category;
     private $htmlSelect;
 
@@ -22,6 +25,7 @@ class CategoryController extends Controller
         return view('admin.category.add',compact('htmlOption'));
     }
     public function index(){
+        Paginator::useBootstrap();
         $categories = Category::where('deleted_at','=',null)->paginate(5);
         return view('admin.category.index', compact('categories'));
     }

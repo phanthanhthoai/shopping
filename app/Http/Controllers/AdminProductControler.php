@@ -1,6 +1,8 @@
 <?php
 
 namespace App\Http\Controllers;
+
+use App\Http\Requests\ProductRequest;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
 use App\Models\Category;
@@ -12,21 +14,26 @@ use Illuminate\Support\Facades\Storage;
 use App\Traits\StorageImageTrait;
 use PhpParser\Node\Stmt\TryCatch;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Pagination\Paginator;
+
 class AdminProductControler extends Controller
 {
     use StorageImageTrait;
+
     private $category;
     private $htmlSelect;
     private $product;
-
-    public function __construct(Category $category,Product $product)
+    private $productImage;
+    public function __construct(Category $category,Product $product,ProductImage $productImage)
     {
         $this->category= $category;
         $this->product = $product;
+        $this->productImage= $productImage;
     }
     public function index()
     {
-        $products= $this->product->latest()->paginate(10);
+        Paginator::useBootstrap();
+        $products= $this->product->latest()->paginate(5);
         return view('admin.product.index',compact('products'));
     }
     public function create()
@@ -41,7 +48,63 @@ class AdminProductControler extends Controller
         $htmlOption=$this->categoryRecursive($product->category_id);
         return view('admin.product.edit',compact('product','htmlOption'));
     }
-    public function save(Request $request)
+    public function delete($id)
+    {
+        try{
+            $this->product->find($id)->delete();
+            return response([
+                'code' =>200,
+                'message'=> 'success'
+            ],200);
+
+        }catch (\Exception $exception){
+            Log::error('Message: '.$exception->getMessage().'Line : '.$exception->getLine());
+            return response()->json([
+                'code' =>500,
+                'message' => 'fail',
+            ],500);
+        }
+    }
+    public function update(Request $request,$id)
+    {
+        try{
+            DB::beginTransaction();
+            $dataProductUpdate =[
+                'name' => $request->name,
+                'price' => $request->price,
+                'content'=> $request->contents,
+                'user_id' => Auth::id(),
+                'category_id' => $request->category_id
+            ];
+            $dataImage= $this->storageTraitUpload($request,'feature_image_path','product');
+            if(!empty($dataImage)){
+                $dataProductUpdate['feature_image_name']= $dataImage['file_name'];
+                $dataProductUpdate['feature_image_path']= $dataImage['file_path'];
+            }
+            $this->product->find($id)->update($dataProductUpdate);
+            $product= $this->product->find($id);
+    
+            // thrm vao product_images
+            if($request->hasFile('image_path')){
+                $this->productImage->where('product_id',$id)->delete();
+                foreach ($request->image_path as $fileItem){
+                    $dataProductImageDetail = $this->storageTraitUploadMutiple($fileItem,'product');
+                    $product->images()->create([
+                        'image_path' => $dataProductImageDetail['file_path'],
+                        'image_name' => $dataProductImageDetail['file_name']
+                    ]);
+                }
+            }
+            DB::commit();
+            return redirect()->route('adminproduct.index');
+        }catch (\Exception $exception){
+            DB::rollBack();
+            Log::error('Message: '.$exception->getMessage().'Line : '.$exception->getLine());
+        }
+        
+    }
+
+    public function save(ProductRequest $request)
     {
         try{
             DB::beginTransaction();

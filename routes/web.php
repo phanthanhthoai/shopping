@@ -3,6 +3,8 @@
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\AdminProductControler;
+use App\Http\Controllers\AdminSliderControler;
+
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -36,6 +38,24 @@ Route:: prefix('products')->group( function()
     Route::get('/edit/{id}', [AdminProductControler::class, 'edit'])->name('adminproduct.edit');
     Route::get('/delete/{id}', [AdminProductControler::class, 'delete'])->name('adminproduct.delete');
     Route::post('/update/{id}', [AdminProductControler::class, 'update'])->name('adminproduct.update');
+});
+Route:: prefix('sliders')->group( function()
+{
+    Route::get('/index', [AdminSliderControler::class, 'index'])->name('sliders.index');
+    Route::get('/create', [AdminSliderControler::class, 'create'])->name('sliders.create');
+    Route::post('/save', [AdminSliderControler::class, 'save'])->name('sliders.save');
+    Route::get('/edit/{id}', [AdminSliderControler::class, 'edit'])->name('sliders.edit');
+    Route::get('/delete/{id}', [AdminSliderControler::class, 'delete'])->name('sliders.delete');
+    Route::post('/update/{id}', [AdminSliderControler::class, 'update'])->name('sliders.update');
+});
+Route:: prefix('settings')->group( function()
+{
+    Route::get('/index', [AdminSliderControler::class, 'index'])->name('settings.index');
+    Route::get('/create', [AdminSliderControler::class, 'create'])->name('settings.create');
+    Route::post('/save', [AdminSliderControler::class, 'save'])->name('settings.save');
+    Route::get('/edit/{id}', [AdminSliderControler::class, 'edit'])->name('settings.edit');
+    Route::get('/delete/{id}', [AdminSliderControler::class, 'delete'])->name('settings.delete');
+    Route::post('/update/{id}', [AdminSliderControler::class, 'update'])->name('settings.update');
 });
 
 require __DIR__.'/auth.php';
