@@ -9,12 +9,12 @@
                             <div class="sb-sidenav-menu-heading">Interface</div>
                             <a class="nav-link" href="{{route('categories.index')}}">
                                 <div class="sb-nav-link-icon"><i class="fas fa-columns"></i></div>
-                                Category
+                                Danh mục sản phẩm
                             </a>
                             
                             <a class="nav-link" href="{{route('adminproduct.index')}}">
                                 <div class="sb-nav-link-icon"><i class="fas fa-columns"></i></div>
-                                Product
+                                Sản phẩm
                             </a>
                             <a class="nav-link" href="{{route('sliders.index')}}">
                                 <div class="sb-nav-link-icon"><i class="fas fa-columns"></i></div>
@@ -22,7 +22,15 @@
                             </a>
                             <a class="nav-link" href="{{route('settings.index')}}">
                                 <div class="sb-nav-link-icon"><i class="fas fa-columns"></i></div>
-                                Settings
+                                Liên hệ
+                            </a>
+                            <a class="nav-link" href="{{route('users.index')}}">
+                                <div class="sb-nav-link-icon"><i class="fas fa-columns"></i></div>
+                                Người dùng
+                            </a>
+                            <a class="nav-link" href="{{route('roles.index')}}">
+                                <div class="sb-nav-link-icon"><i class="fas fa-columns"></i></div>
+                                Vai trò
                             </a>
                         </div>
                     </div>

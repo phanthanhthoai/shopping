@@ -4,6 +4,7 @@
 @endsection
 @section('js')
 <script src="{{asset('vendors/sweetAlert2/sweetalert2@11.js')}}"></script> 
+<script src="{{asset('admins/main.js')}}"></script>
 @endsection
  @section('content')
      <!-- Content Wrapper. Contains page content -->
@@ -14,7 +15,16 @@
       <div class="container-fluid">
         <div class="row">
           <div class="col-md-12">
-            <a href="{{route('sliders.create')}}" class="btn btn-success float-right m-2">ADD</a>
+            <div class="dropdown">
+              <a class="btn btn-secondary dropdown-toggle " href="#" role="button" id="dropdownMenuLink" data-bs-toggle='dropdown' aria-haspopup="true" aria-expanded="false">
+                Add
+              </a>
+
+              <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                <a class="dropdown-item" href="{{route('settings.create').'?type=Text'}}">Text</a>
+                <a class="dropdown-item" href="{{route('settings.create').'?type=Textarea'}}">Textarea</a>
+              </div>
+            </div>
           </div>
           <div class="col-md-12">
             <table class="table">
@@ -35,8 +45,8 @@
                   </td>
                   <td>{{$settingItem->config_value}}</td>
                   <td>
-                  <a href="" class="btn btn-default">Sửa</a>
-                  <a data-url="" href="" class="btn btn-danger action_delete">Xóa</a>
+                  <a href="{{route('settings.edit',['id' => $settingItem->id]).'?type='.$settingItem->type}}" class="btn btn-default">Sửa</a>
+                  <a data-url="{{route('settings.delete',['id' => $settingItem->id]).'?type='.$settingItem->type}}" href="{{route('settings.delete',['id' => $settingItem->id]).'?type='.$settingItem->type}}" class="btn btn-danger action_delete">Xóa</a>
                   </td>
                   
                 </tr>
